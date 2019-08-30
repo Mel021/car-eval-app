@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<style>
+form {
+    margin: auto;
+    width: 35%;
+}
+.result {
+    margin: auto;
+    width: 35%;
+    border: 1px solid #ccc;
+}
+</style>
+<head>
+    <title>Car Evaluation Model</title>
+</head>
+<form action="{% url 'get_class' %}" method="POST">
+    <fieldset>
+	{% if model_result %}
+	<script>alert('{{ model_result }}')</script>
+	{% endif %}
+        <legend>Input values:</legend>
+	<table style="width:100%">
+	<tr> <td>Buying:</td>        
+	<td><select name='buying'><option value=4>V-High</option><option value=3>High</option><option value=2>Med</option><option value=1>Low</option></select></td>
+        </tr>
+	<tr> <td>Maint:</td>        
+	<td><select name='maint'><option value=4>V-High</option><option value=3>High</option><option value=2>Med</option><option value=1>Low</option></select></td>
+        </tr>
+	<tr> <td>Doors:</td>        
+	<td><select name='doors'><option value=2>Two</option><option value=3>Three</option><option value=4>Four</option><option value=5>More</option></select></td>
+        </tr>
+	<tr> <td>Persons:</td>        
+	<td><select name='persons'><option value=2>Two</option><option value=4>Four</option><option value=5>More</option>
+        </tr>
+	<tr> <td>Leg boot space:</td>        
+	<td><select name='leg_boot'><option value=0>Small</option><option value=1>Med</option><option value=2>Big</option>
+        </tr>
+	<tr> <td>Safety:</td>        
+	<td><select name='safety'><option value=0>Low</option><option value=1>Med</option><option value=3>High</option>
+        </tr>
+	</table>
+       	<br>
+        <br>
+        <input type="submit" class="buttn" name="bttn" value="Click">
+    </fieldset>
+</form>
+<br>
+<div class="result" align="center">
+    {% if result %}
+        {% for variable, value in original_input.items %}
+            <b>{{ variable }}</b> : {{ value }}
+        {% endfor %}
+        <br>
+        <br> Predicted class:
+           <p style="font-size:50px">{{ result }}</p>
+    {% endif %}
+</div>
+</html>
